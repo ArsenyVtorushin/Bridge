@@ -23,10 +23,15 @@ public:
 	
 	Form();
 	Form(int idForm);
+	Form(formType idForm);
 
-	bool getName()const;
+	virtual ~Form() = default;
+
+	auto getName()const->std::string;
+	auto getType()const->formType;
 
 	bool operator==(const Form& other)const;
+	friend std::ostream& operator<<(std::ostream& out, const Form& obj);
 
 private:
 	formType form_;

@@ -6,7 +6,7 @@ Color::Color(int red, int green, int blue) :red_(red), green_(green), blue_(blue
 
 
 
-void Color::setColorCode(int red, int green, int blue)
+void Color::setColor(int red, int green, int blue)
 {
 	red_ = red;
 	green_ = green;
@@ -17,8 +17,11 @@ void Color::setColorCode(int red, int green, int blue)
 
 auto Color::getHexCode() const -> std::string
 {
-	// later
-	return std::string();
+	std::string result{ "#" };
+	result += std::to_string(red_);
+	result += std::to_string(green_);
+	result += std::to_string(blue_);
+	return result;
 }
 
 
@@ -31,3 +34,9 @@ bool Color::operator==(const Color& other) const
 		this->blue_ == other.blue_;
 }
 
+
+
+std::ostream& operator<<(std::ostream& out, const Color& obj)
+{
+	return out << obj.getHexCode();
+}
