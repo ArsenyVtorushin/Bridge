@@ -1,8 +1,9 @@
 #ifndef COLOR_HPP
 #define COLOR_HPP
 
-#include "Form.hpp"
+#include <iostream>
 #include <string>
+#include "Form.hpp"
 
 class Color
 {

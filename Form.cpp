@@ -17,15 +17,15 @@ auto Form::getName()const -> std::string
 	case Form::formType::Circle:
 		return "Circle";
 	case Form::formType::Star:
-		return "Circle";
+		return "Star";
 	case Form::formType::Parallelepiped:
-		return "Circle";
+		return "Parallelepiped";
 	case Form::formType::Prizm:
-		return "Circle";
+		return "Prizm";
 	case Form::formType::Cone:
-		return "Circle";
+		return "Cone";
 	case Form::formType::Romb:
-		return "Circle";
+		return "Romb";
 	case Form::formType::Triangle:
 		return "Triangle";
 	case Form::formType::Hexagon:
@@ -41,7 +41,7 @@ auto Form::getName()const -> std::string
 
 auto Form::getType() const -> formType
 {
-	return formType();
+	return form_;
 }
 
 
@@ -55,5 +55,7 @@ bool Form::operator==(const Form& other) const
 
 std::ostream& operator<<(std::ostream& out, const Form& obj)
 {
-	return out << 
+	return out << obj.getName();
 }
+
+

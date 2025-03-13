@@ -5,7 +5,6 @@ Frame::Frame() :Frame(Form::formType::Circle) {}
 Frame::Frame(const Form& obj) :form_(obj) {} 
 
 
-
 void Frame::setForm(const Form& obj)
 {
 	form_ = obj;

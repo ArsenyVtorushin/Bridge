@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 #include "Form.hpp"
 #include "Color.hpp"
@@ -15,15 +16,17 @@ public:
 
 	virtual ~Toy() = default;
 
+	void Info();
 
 	// Почему мы в сеттеры передаем константную ссылку
 	// а не обычный объект?
 
+	void setRandom();
 
 	void setName(const std::string& name);
 	void setColor(const Color& color);
 	void setForm(const Form::formType& form);
-
+		
 	auto getName()const->std::string;
 	auto getColor()const->Color;
 	auto getForm()const->Form::formType;

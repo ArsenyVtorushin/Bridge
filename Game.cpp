@@ -5,27 +5,7 @@
 
 Game::Game()
 {
-	frames_.reserve(9);
-	for (size_t i = 0; i < frames_.size(); i++)
-	{
-		frames_[i].setForm(static_cast<Form::formType>(i));
-	}
-
-	bucket_.reserve(15);
-	for (size_t i = 0; i < bucket_.size(); i++)
-	{
-		bucket_[i].setName("Abraham Linkoln");
-		bucket_[i].setColor({ rand() % 256, rand() % 256, rand() % 256 });
-		bucket_[i].setForm(static_cast<Form::formType>(rand() % 9)); // у енумов нельзя узнать кол-во элементов >:(
-	}
-
-	hand_.reserve(3);
-	for (size_t i = 0; i < hand_.size(); i++)
-	{
-		hand_[i].setName("George Washington");
-		hand_[i].setColor({ rand() % 256, rand() % 256, rand() % 256 });
-		hand_[i].setForm(static_cast<Form::formType>(rand() % 9));
-	}
+	init();
 }
 
 
@@ -33,26 +13,27 @@ Game::Game()
 
 void Game::StartGame()
 {
-	std::cout
-		<< "\n=========================================\n"
-		<< "\n*  Игра-головоломка для таких, как ты!  *\n"
-		<< "\n=========================================\n";
+	std::cout << "\n"
+		<< "=========================================\n"
+		<< "*  Игра-головоломка для таких, как ты!  *\n"
+		<< "=========================================\n";
 
 	while (true)
 	{
+		Show();
 		char choose;
+
 		do
 		{
-			std::cout
-				<< "\n------------------------\n"
+			std::cout << "\n\n"
+				<< "------------------------\n"
 				<< "|       Выберите       |\n"
 				<< "| 1.Взять игрушку      |\n"
 				<< "| 2.Поместить игрушку  |\n"
-				<< "| 3.Посмотреть игрушки |\n"
 				<< "| 0.Закончить игру     |\n"
-				<< "------------------------\n";
+				<< "------------------------\n\n";
 			std::cin >> choose;
-		} while (choose < 48 || choose > 51);
+		} while (choose < 48 || choose > 50);
 
 		if (choose == '1')
 		{
@@ -62,9 +43,9 @@ void Game::StartGame()
 		{
 			PlaceToys();
 		}
-		else if (choose == '3')
+		else
 		{
-			ShowToys();
+			break;
 		}
 	}
 }
@@ -73,6 +54,8 @@ void Game::StartGame()
 
 void Game::TakeToys()
 {
+	hand_.push_back(bucket_.back());
+	bucket_.pop_back();
 }
 
 
@@ -80,13 +63,69 @@ void Game::TakeToys()
 
 void Game::PlaceToys()
 {
+	int choose;
+	do
+	{
+		std::cout << "\nВыберите в какую рамку засунуть игрушку:\n";
+		std::cin >> choose;
+	} while (choose < 0 || choose > 9);
+
+	if (hand_.back().getForm() == static_cast<Form::formType>(choose))
+	{
+		bucket_.push_back(hand_.back());
+		hand_.pop_back();
+	}
+	else
+	{
+		std::cout << "\n\n\nПопробуй ещё раз дурень\n";
+	}
+	
 }
 
 
 
-
-void Game::ShowToys()
+void Game::Show()
 {
+	std::cout << "\n*********************************";
+
+	std::cout << "\n          - Ведёрко -\n";
+	for (int i = 0; i < bucket_.size(); i++)
+	{
+		std::cout << i << '\n';
+		bucket_[i].Info();
+	}
+
+	std::cout << "\n           - Рамки - \n";
+	for (int i = 0; i < frames_.size(); i++)
+	{
+		std::cout << i << ' ' << frames_[i] << '\n';
+	}
+
+	std::cout << "\n\n           - У вас в руке - \n";
+	for (int i = 0; i < hand_.size(); i++)
+	{
+		std::cout << i << std::endl;
+		hand_[i].Info();
+		std::cout << "\n";
+	}
+
+	std::cout << "*********************************\n";
 }
 
 
+
+
+void Game::init()
+{
+	frames_.reserve(9);
+	for (int i = 0; i < frames_.capacity(); i++)
+	{
+		frames_.emplace_back(i);
+	}
+
+	bucket_.reserve(5);
+	for (int i = 0; i < bucket_.capacity(); i++)
+	{
+		bucket_.emplace_back();
+	}
+}

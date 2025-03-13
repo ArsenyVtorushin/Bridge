@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cstdlib>
+#include <iostream>
 
 #include "Toy.hpp"
 #include "Frame.hpp"
@@ -19,14 +20,15 @@ public:
 
 	void TakeToys();
 	void PlaceToys();
-	void ShowToys();
+
+	void Show();
 
 private:
 	//=======================================================
 	// пачка приватных методов которые будут нам игру играть
 	//=======================================================
 
-
+	void init();
 
 	std::vector<Frame> frames_;
 	std::vector<Toy> bucket_;
